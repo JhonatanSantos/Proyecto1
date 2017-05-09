@@ -1,0 +1,26 @@
+#include <SoftwareSerial.h>
+SoftwareSerial ModuloGPS(7, 8); //Seleccionamos los pines 7 como Rx y 8 como Tx
+void setup()
+{
+  Serial.begin(19200);  //Iniciamos el Serial a 19200 baudios
+  ModuloGPS.begin(19200);  //Iniciamos el Arduino a 19200 baudios
+  
+  Serial.print("-----------------------------");
+  
+  /*Comandos AT para probar
+  AT                -     Para ver conexion AT
+  AT+CGNSPWR=0      -     Para desactivar GPS 
+  AT+CGNSPWR=1      -     Para activar GPS
+  AT+CGNSTST=1      -     Para recibir señal GPS
+  AT+CGNSTST=0      -     Para dejar de recibir señal GPS
+  AT+ GSN           -     Para ver codigo IMEI
+  AT+CSQ            -     Para ver calidad de señal movil
+  */
+}
+void loop()
+{
+ if (Serial.available() > 0){
+     SIM900.write(Serial.read());}
+ if (SIM900.available() > 0){
+     Serial.write(SIM900.read());}
+}
