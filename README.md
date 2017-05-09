@@ -1,2 +1,2 @@
 # Proyecto1
-Primer proyecto =)
+Primer proyecto para analizar comando AT y GPS =)
