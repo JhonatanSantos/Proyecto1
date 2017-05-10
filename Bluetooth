@@ -1,0 +1,33 @@
+#include <SoftwareSerial.h>
+SoftwareSerial Bluetooth(4,2);
+int ledPin8 = 8,sensorPin = A0,sensorValue = 0;
+void setup(){
+    Serial.begin(9600);Serial.println("SerialPC - Correcto");
+    Bluetooth.begin(9600);Serial.println("BT - Correcto");
+    pinMode(ledPin8, OUTPUT);Serial.println("LED - Correcto");
+}
+void loop(){
+  if(Bluetooth.available())
+    Serial.write(Bluetooth.read());
+  EncenderLED();
+  if(Serial.available()){
+    String S = GetLine();
+    Bluetooth.print(S);Serial.println(">"+S);
+ }}
+void EncenderLED(){
+  sensorValue = analogRead(sensorPin); 
+    if(sensorValue>100){
+      Serial.println(sensorValue);
+      digitalWrite(ledPin8, HIGH);
+      Bluetooth.println(sensorValue); delay(1500);
+      digitalWrite(ledPin8, LOW);
+  }}
+String GetLine(){
+  String Palabra = "" ;
+  if (Serial.available()){
+    char data = Serial.read();
+    while(data!='\n'){
+      Palabra = Palabra + data ; delay(25);
+      data = Serial.read();}
+    return( Palabra + '\n') ;
+  }}
